@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  coqui-tts:
+    build: .
+    container_name: coqui-tts-synthesizer
+    runtime: nvidia       #comment out for CPU
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - TTS_HOME=/app/models
+      - TARGET_SAMPLES=6
+      - MIN_DURATION=1.0
+      - MAX_DURATION=1.3
+      - BATCH_SIZE=20
+      - OUTPUT_DIR=/app/output
+      - WAKE_WORD=Hello Airi
+      - RANDOM_SEED=42
+      - FORCE_CPU=false
+    volumes:
+      - ./scripts:/app/scripts:ro
+      - ./output:/app/output
+      - ./models:/app/models
+    command: /app/scripts/generate_dataset.py
+    deploy:         #comment all following lines for CPU only
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
