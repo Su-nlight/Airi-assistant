@@ -106,13 +106,13 @@ Testing ensured:
 # Deployment 
 The AIRI Assistant is currently supported on Linux systems using Docker.
 
-## Requirements
+Requirements
 * Linux-based OS
 * Docker installed
 * Microphone access
 * Audio output device 
 
-## Running with Docker 
+Running with Docker 
 Build the container: docker build -t airi-assistant .
 Run the container: docker run --device /dev/snd airi-assistant
 
@@ -128,4 +128,12 @@ Features:
 Directory: coqui-tts-synthesizer/
 
 ---
-#
+# Use Cases
+
+* Personal voice assistant
+* Edge AI experimentation
+* Offline voice control systems
+* Smart home integration
+* Embedded AI projects
+
+---
