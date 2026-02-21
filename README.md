@@ -42,7 +42,8 @@ The assistant is designed with a privacy-first approach, ensuring core functiona
 
 ---
 
-## System Architecture
+### System Architecture
+```
 Microphone Input
 │
 ▼
@@ -56,3 +57,4 @@ Text-to-Speech Engine
 │
 ▼
 Audio Output
+```
