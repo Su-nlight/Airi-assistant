@@ -64,6 +64,7 @@ The dataset consists of three balanced classes:
     * Increased dataset scalability
     * Consistent pronunciation
     * Reduced manual data collection effort
+      
       ---
       # Signal Processing and Feature Extraction
       Mel-Frequency Cepstral Coefficients (MFCC) were used for audio feature extraction.
