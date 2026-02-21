@@ -137,3 +137,10 @@ Directory: coqui-tts-synthesizer/
 * Embedded AI projects
 
 ---
+# Future Improvements
+
+* Full command recognition pipeline
+* Integration with LLMs for conversational capability
+* Cross-platform native support
+* Improved voice quality
+* Hardware device support
