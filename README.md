@@ -50,16 +50,16 @@ The dataset consists of three balanced classes:
 * Unknown Words: unrelated speech such as "yes", "no", "left", etc.
 * Noise: background sounds, silence, and environmental noise
 At least 10 minutes of wake word audio was collected to ensure reliable keyword spotting performance.
-  
-  ## Dataset Variants
-  Naive Dataset
-  Includes:
-  * Real human recordings of "Hello Airi"
-  * High variance in accents, pitch, tone, and speaking style.
-  * Additional keyword spotting datasets from Edge Impulse documentation.
-    This improves real-world robustness.
+
+## Dataset Variants
+Naive Dataset
+Includes:
+* Real human recordings of "Hello Airi"
+* High variance in accents, pitch, tone, and speaking style.
+* Additional keyword spotting datasets from Edge Impulse documentation.
+  This improves real-world robustness.
     
-    ## Synthetic Dataset
+ ## Synthetic Dataset
     The wake word dataset was synthetically generated using the Coqui TTS synthesizer located in:
     coqui-tts-synthesizer/
     Benefits include:
