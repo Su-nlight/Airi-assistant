@@ -1,150 +1,199 @@
-# Assistant
-AIRI Assistant is a lightweight, privacy-focused, edge-optimized voice assistant designed for real-time wake word detection and on-device inference. It uses custom-trained machine learning models for keyword spotting and integrates offline speech synthesis for efficient and responsive interaction.
+<div align="center">
 
-The assistant is optimized to run on resource-constrained systems while maintaining high accuracy and low latency.
+# 🤖 AIRI Assistant
 
----
-# Features
-* Custom wake word detection ("Hello Airi")
-* Fully offline wake word inference
-* Optimized INT8 quantized machine learning models
-* Synthetic and real voice training support
-* Docker-based deployment for Linux systems
-* Low memory and CPU usage
-* Modular and extensible architecture
+> *Your offline, privacy-first voice assistant that actually slaps.*
 
---- 
-# System Architecture
-The AIRI Assistant consists of the following core components: 
-```
-Microphone Input
-       ↓
-Wake Word Detection Model (Edge Impulse)
-       ↓
-Command Processing Logic
-       ↓
-Response Generation
-       ↓
-Coqui TTS Synthesizer
-       ↓
-Audio Output
-```
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform: Linux](https://img.shields.io/badge/Platform-Linux-blue.svg)]()
+[![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)]()
+[![Edge AI](https://img.shields.io/badge/Edge-AI-green.svg)]()
+
+**AIRI** is a lightweight, privacy-focused, edge-optimized voice assistant built for real-time wake word detection and fully on-device inference. No cloud. No subscriptions. No nonsense — just fast, local AI that runs right where you are.
+
+</div>
 
 ---
-# Repository Structure
+
+## ✨ Features
+
+| 🔥 What It Does | 💡 Why It's Cool |
+|---|---|
+| Custom wake word detection (`"Hello Airi"`) | Wakes up only for *you* |
+| Fully offline wake word inference | Your voice stays on your device, period |
+| INT8 quantized ML models | Blazing fast, stupidly small footprint |
+| Synthetic + real voice training | Best of both worlds |
+| Docker-based deployment | Spin it up in seconds on any Linux box |
+| Low memory & CPU usage | Runs even on potato hardware |
+| Modular architecture | Hack it, extend it, make it yours |
+
+---
+
+## 🏗️ System Architecture
+
+No cap, here's how AIRI flows from your mouth to your speakers:
+
+```
+🎙️  Microphone Input
+        ↓
+🧠  Wake Word Detection Model (Edge Impulse)
+        ↓
+⚙️  Command Processing Logic
+        ↓
+💬  Response Generation
+        ↓
+🔊  Coqui TTS Synthesizer
+        ↓
+🔈  Audio Output
+```
+
+Clean. Simple. Hits different.
+
+---
+
+## 📁 Repository Structure
+
 ```
 Airi-assistant/
 │
-├── coqui-tts-synthesizer/     # Text-to-speech engine
-├── models-versioned/          # Trained wake word models
-├── Dockerfile                 # Docker deployment configuration
-├── README.md                  # Project documentation
-├── LICENSE                    # MIT License
+├── coqui-tts-synthesizer/     # The voice — smooth and offline
+├── models-versioned/          # Trained wake word models, versioned like a pro
+├── Dockerfile                 # One command and you're live
+├── README.md                  # You're reading it rn
+├── LICENSE                    # MIT — do what you want (almost)
 └── .gitignore
 ```
 
-# Wake Word Model Development
-The wake word detection model was developed using Edge Impulse, an edge machine learning platform designed for building and deploying optimized ML models for sensor data.
+---
 
-## Dataset Classes
-The dataset consists of three balanced classes:
-* Wake Word: "Hello Airi"
-* Unknown Words: unrelated speech such as "yes", "no", "left", etc.
-* Noise: background sounds, silence, and environmental noise
-At least 10 minutes of wake word audio was collected to ensure reliable keyword spotting performance.
+## 🧠 Wake Word Model Development
 
-## Dataset Variants
-Naive Dataset
-Includes:
-* Real human recordings of "Hello Airi"
-* High variance in accents, pitch, tone, and speaking style.
-* Additional keyword spotting datasets from Edge Impulse documentation.
-  This improves real-world robustness.
-    
-## Synthetic Dataset
-The wake word dataset was synthetically generated using the Coqui TTS synthesizer located in: coqui-tts-synthesizer/
-Benefits include: 
-* Increased dataset scalability
-* Consistent pronunciation
-* Reduced manual data collection effort
+AIRI's brain was trained using **[Edge Impulse](https://edgeimpulse.com/)** — an edge ML platform that makes building and deploying optimized models for sensor data actually enjoyable.
+
+### Dataset Classes
+
+The model learned to distinguish between three classes (like a vibe check for audio):
+
+- 🟢 **Wake Word** — `"Hello Airi"` (the magic words)
+- 🟡 **Unknown Words** — random speech like "yes", "no", "left", etc.
+- 🔴 **Noise** — background sounds, silence, environmental chaos
+
+> At least **10 minutes** of wake word audio was collected to make sure AIRI actually knows when you're talking to it and not just vibing in the background.
+
+### Dataset Variants
+
+**Naive Dataset** — real human recordings with high variance in accents, pitch, tone, and speaking style, plus keyword spotting datasets from Edge Impulse. Real talk: diversity in data = robustness in the wild.
+
+**Synthetic Dataset** — generated using the **Coqui TTS synthesizer** (`coqui-tts-synthesizer/`). Why record thousands of samples manually when you can just... generate them? Big brain move. Benefits:
+- Scales like crazy
+- Consistent pronunciation
+- Way less manual effort
 
 ---
-# Signal Processing and Feature Extraction
-Mel-Frequency Cepstral Coefficients (MFCC) were used for audio feature extraction.
 
-MFCC helps:
-* Convert raw audio into meaningful features
-* Reduce redundant information
-* Highlight speech-relevant frequency patterns
+## 🎛️ Signal Processing & Feature Extraction
 
-Feature Explorer visualization was used to validate dataset quality and class separation.
+AIRI uses **MFCC (Mel-Frequency Cepstral Coefficients)** to turn raw audio into something the model can actually learn from. Think of it as translating sound into math that hits different.
 
----
-# Model Training
+MFCCs help by:
+- Converting raw audio into meaningful features
+- Cutting out the noise (literally)
+- Highlighting the frequency patterns that matter for speech
 
-The wake word detection model was trained using the Edge Impulse platform, which provides an end-to-end pipeline for audio data processing, feature extraction, neural network training, and deployment optimization for edge devices.
-
-A neural network classifier was used within Edge Impulse to train the wake word detection model.
-
-Training included:
-
-* Feature extraction using the MFCC (Mel-Frequency Cepstral Coefficients) signal processing block provided by Edge Impulse, which converts raw audio into meaningful feature representations.
-* Neural network training and optimization using Edge Impulse’s built-in classifier, enabling efficient learning of wake word patterns.
-* Confusion matrix analysis and performance metrics provided by Edge Impulse to evaluate classification accuracy and identify misclassifications.
-* Performance validation on unseen test data using Edge Impulse’s testing framework to ensure reliable real-world wake word detection.
-
-The final model was optimized using INT8 quantization through Edge Impulse’s deployment tools, ensuring efficient edge inference with low memory usage, fast execution, and minimal computational requirements.
+Feature Explorer visualization was used to validate dataset quality and class separation — because shipping blind is not the move.
 
 ---
-# Model Testing and Validation
-The dataset was split into:
-* 80% training data
-* 20% testing data
 
-Testing ensured:
-* Accurate wake word detection
-* Low false positives
-* Reliable real-world performance
+## 🏋️ Model Training
 
----
-# Deployment 
-The AIRI Assistant is currently supported on Linux systems using Docker.
+Training was done end-to-end on the **Edge Impulse** platform, which handles everything from data ingestion to deployment optimization. Here's what went down:
 
-Requirements
-* Linux-based OS
-* Docker installed
-* Microphone access
-* Audio output device 
+- **Feature extraction** via the MFCC signal processing block
+- **Neural network training** using Edge Impulse's built-in classifier — it learned the wake word patterns so you don't have to hardcode anything
+- **Confusion matrix analysis** to catch misclassifications before they ship
+- **Performance validation** on unseen test data — no shortcuts, no cap
+- **INT8 quantization** for the final model — tiny, fast, and ready for edge devices
 
-Running with Docker 
-Build the container: docker build -t airi-assistant .
-Run the container: docker run --device /dev/snd airi-assistant
+### Train/Test Split
+
+```
+80% Training  ████████████████░░░░  
+20% Testing   ████░░░░░░░░░░░░░░░░  
+```
+
+This setup ensures low false positives and reliable real-world detection. AIRI won't wake up every time someone sneezes near your mic.
 
 ---
-# Text-to-Speech Engine
-AIRI Assistant uses Coqui TTS for speech synthesis. 
 
-Features:
-* Fully offline
-* Natural sounding voice output
-* Low latency response
+## 🚀 Deployment
 
-Directory: coqui-tts-synthesizer/
+AIRI currently runs on **Linux via Docker**. Setup is genuinely easy — no PhD required.
+
+### Requirements
+
+- Linux-based OS
+- Docker installed
+- Microphone access
+- Audio output device
+
+### Let's Get It Running
+
+```bash
+# Build the container
+docker build -t airi-assistant .
+
+# Run it (with microphone access — mandatory, not optional lol)
+docker run --device /dev/snd airi-assistant
+```
+
+That's it. You're up.
 
 ---
-# Use Cases
 
-* Personal voice assistant
-* Edge AI experimentation
-* Offline voice control systems
-* Smart home integration
-* Embedded AI projects
+## 🗣️ Text-to-Speech Engine
+
+AIRI uses **[Coqui TTS](https://github.com/coqui-ai/TTS)** for speech synthesis — fully offline, sounds natural, and responds fast. No weird robotic voices, no cloud dependency.
+
+**Directory:** `coqui-tts-synthesizer/`
 
 ---
-# Future Improvements
 
-* Full command recognition pipeline
-* Integration with LLMs for conversational capability
-* Cross-platform native support
-* Improved voice quality
-* Hardware device support
+## 🎯 Use Cases
+
+Whether you're a hobbyist or an edge AI nerd, AIRI's got you:
+
+- 🏠 **Smart home integration** — control your space with your voice
+- 🧪 **Edge AI experimentation** — perfect playground for ML tinkering
+- 🔒 **Offline voice control** — zero data leaving your device
+- 💻 **Personal voice assistant** — your own JARVIS (kinda)
+- 🔧 **Embedded AI projects** — slap it on your Raspberry Pi and go wild
+
+---
+
+## 🔮 What's Coming Next
+
+The roadmap is looking bussin':
+
+- [ ] Full command recognition pipeline
+- [ ] LLM integration for actual conversations (not just wake words)
+- [ ] Cross-platform native support (Windows & macOS gang, you're not forgotten)
+- [ ] Improved voice quality
+- [ ] Hardware device support
+
+Stay tuned. AIRI is just getting started. 🚀
+
+---
+
+## 📄 License
+
+MIT License — free to use, modify, and distribute. Just don't be weird about it.
+
+---
+
+<div align="center">
+
+**Made with 💙 for edge AI enthusiasts who believe your data should stay yours.**
+
+*Say "Hello Airi" and let's get to work.*
+
+</div>
