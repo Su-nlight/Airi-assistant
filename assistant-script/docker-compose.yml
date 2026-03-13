@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  keyword-spotter:
+    build: .
+    container_name: edge-impulse-kws
+    devices:
+      - /dev/snd:/dev/snd  # Audio device access
+    privileged: true  # Required for audio access
+    environment:
+      - MODEL_PATH=/app/model.eim
+      - DETECTION_THRESHOLD=0.7
+      - AUDIO_SAMPLE_RATE=16000
+      - PULSE_SERVER=host.docker.internal
+    volumes:
+      - ./datin-voice-agent-linux-x86_64-v7.eim:/app/model.eim
+      - ./logs:/app/logs
+    restart: unless-stopped
+    network_mode: host  # If you need network access for callbacks

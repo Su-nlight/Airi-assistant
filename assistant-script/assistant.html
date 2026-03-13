@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Assistant - Edge Impulse Keyword Spotter</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <i data-lucide="zap" class="header-icon"></i>
+                <h1 class="header-title">Voice Assistant</h1>
+            </div>
+            <p class="header-subtitle">Edge Impulse WebAssembly Keyword Spotter</p>
+        </header>
+
+        <!-- Main Control Panel -->
+        <div class="control-panel">
+            <div class="panel-content">
+                <!-- Waveform Visualization -->
+                <div class="waveform-container">
+                    <div id="waveform" class="waveform"></div>
+                </div>
+
+                <!-- Control Button -->
+                <button id="micButton" class="mic-button">
+                    <i data-lucide="mic" class="mic-icon"></i>
+                    <span class="pulse-ring"></span>
+                </button>
+
+                <!-- Status -->
+                <div class="status-container">
+                    <p id="status" class="status-text">Initializing...</p>
+                    <div id="confidenceDisplay" class="confidence-display" style="display: none;">
+                        <i data-lucide="activity" class="confidence-icon"></i>
+                        <span id="confidenceValue">Confidence: 0.0%</span>
+                    </div>
+                </div>
+
+                <!-- Settings Toggle -->
+                <button id="settingsButton" class="settings-button">
+                    <i data-lucide="settings" class="settings-icon"></i>
+                    <span>Settings</span>
+                </button>
+            </div>
+
+            <!-- Settings Panel -->
+            <div id="settingsPanel" class="settings-panel" style="display: none;">
+                <div class="setting-item">
+                    <label class="setting-label">
+                        Detection Threshold: <span id="thresholdValue">96</span>%
+                    </label>
+                    <input 
+                        type="range" 
+                        id="thresholdSlider" 
+                        min="50" 
+                        max="99" 
+                        value="96" 
+                        class="slider"
+                    />
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">
+                        Cooldown Period: <span id="cooldownValue">2.0</span>s
+                    </label>
+                    <input 
+                        type="range" 
+                        id="cooldownSlider" 
+                        min="500" 
+                        max="5000" 
+                        step="100" 
+                        value="2000" 
+                        class="slider"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Display -->
+        <div id="responsePanel" class="response-panel" style="display: none;">
+            <div class="response-content">
+                <i data-lucide="volume-2" class="response-icon"></i>
+                <div>
+                    <h3 class="response-title">Response</h3>
+                    <p id="responseText" class="response-text"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection History -->
+        <div id="historyPanel" class="history-panel" style="display: none;">
+            <div class="history-header">
+                <i data-lucide="database" class="history-icon"></i>
+                <h3 class="history-title">Recent Detections</h3>
+            </div>
+            <div id="historyList" class="history-list"></div>
+        </div>
+    </div>
+
+    <!-- Load Edge Impulse WebAssembly Module BEFORE script.js -->
+    <script src="edge-impulse-standalone.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
