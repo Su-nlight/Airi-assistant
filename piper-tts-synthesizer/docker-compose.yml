@@ -1,0 +1,29 @@
+services:
+  piper-tts:
+    build: .
+    container_name: piper-wakeword-synthesizer
+    # runtime: nvidia          # comment out for CPU-only mode
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - WAKE_WORD=Hello Airi
+      - TARGET_SAMPLES=600
+      - MIN_DURATION=1.0
+      - MAX_DURATION=1.3
+      - BATCH_SIZE=20
+      - OUTPUT_DIR=/app/output
+      - MODELS_DIR=/app/models
+      - TARGET_SR=22050        # Piper native SR; 16000 for downstream ML pipelines
+      - RANDOM_SEED=42
+      - FORCE_CPU=false        # set true to force CPU even when GPU is present
+    volumes:
+      - ./scripts:/app/scripts:ro
+      - ./output:/app/output
+      - ./models:/app/models
+    command: /app/scripts/generate_dataset.py
+    # deploy:                    # comment all lines below for CPU-only mode
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
